@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 import { ReactLenis } from "lenis/react";
 import { ArrowDown, ArrowDownRight, ArrowUpRight, Code2, Mail, Menu, Sparkles, X } from "lucide-react";
@@ -37,9 +36,7 @@ function Hero() {
 
 function Intro() {
   const reduceMotion = useReducedMotion();
-  const [imageFailed, setImageFailed] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
-  const profileImageSource = "/images/profile.jpg";
 
   return (
     <Reveal className="portrait-editorial">
@@ -54,23 +51,15 @@ function Intro() {
         <div className="portrait-glow" aria-hidden="true" />
         <span className="portrait-index">01 / PERSONAL</span>
         <div className="portrait-frame">
-          {imageFailed ? (
-            <div className="portrait-placeholder" role="img" aria-label="Portrait placeholder for Tharindu Dilshan">
-              <span className="portrait-placeholder-mark">td<span>.</span></span>
-              <span className="portrait-placeholder-note">PORTRAIT PHOTO<br />COMING SOON</span>
-            </div>
-          ) : (
-            <Image
-              src={profileImageSource}
-              alt="Portrait of Tharindu Dilshan"
-              fill
-              sizes="(max-width: 720px) 88vw, (max-width: 1100px) 42vw, 430px"
-              quality={90}
-              className={`portrait-image${imageLoaded ? " portrait-image-loaded" : ""}`}
-              onLoad={() => setImageLoaded(true)}
-              onError={() => setImageFailed(true)}
-            />
-          )}
+          {/* eslint-disable-next-line @next/next/no-img-element -- use the original public portrait without Next.js optimization */}
+          <img
+            src="/images/profile.jpg"
+            alt="Portrait of Tharindu Dilshan"
+            loading="lazy"
+            decoding="async"
+            className={`portrait-image${imageLoaded ? " portrait-image-loaded" : ""}`}
+            onLoad={() => setImageLoaded(true)}
+          />
           <div className="portrait-shade" aria-hidden="true" />
         </div>
         <figcaption className="portrait-float-label"><span />THE DEVELOPER BEHIND THE CODE</figcaption>

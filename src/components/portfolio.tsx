@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 import { ReactLenis } from "lenis/react";
 import { ArrowDown, ArrowDownRight, ArrowUpRight, Code2, Mail, Menu, Sparkles, X } from "lucide-react";
@@ -35,7 +36,65 @@ function Hero() {
 }
 
 function Intro() {
-  return <Reveal className="intro-ribbon"><div className="intro-index">A NOTE<br />FROM ME<span>01 / 03</span></div><p>I like the part where a rough idea turns into something <span>real</span> — considered at the edges, dependable underneath, and genuinely <span>useful</span> to the person using it.</p><div className="intro-signature">T.D.<span>CURIOUS BY DEFAULT</span></div></Reveal>;
+  const reduceMotion = useReducedMotion();
+  const [imageFailed, setImageFailed] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const profileImageSource = "/images/profile.jpg";
+
+  return (
+    <Reveal className="portrait-editorial">
+      <motion.figure
+        className="portrait-figure"
+        initial={reduceMotion ? false : { opacity: 0, y: 22, clipPath: "inset(0 0 100% 0 round 6px)" }}
+        whileInView={{ opacity: 1, y: 0, clipPath: "inset(0 0 0% 0 round 6px)" }}
+        whileHover={reduceMotion ? undefined : { scale: 1.012 }}
+        viewport={{ once: true, amount: 0.28 }}
+        transition={{ duration: reduceMotion ? 0 : 0.9, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <div className="portrait-glow" aria-hidden="true" />
+        <span className="portrait-index">01 / PERSONAL</span>
+        <div className="portrait-frame">
+          {imageFailed ? (
+            <div className="portrait-placeholder" role="img" aria-label="Portrait placeholder for Tharindu Dilshan">
+              <span className="portrait-placeholder-mark">td<span>.</span></span>
+              <span className="portrait-placeholder-note">PORTRAIT PHOTO<br />COMING SOON</span>
+            </div>
+          ) : (
+            <Image
+              src={profileImageSource}
+              alt="Portrait of Tharindu Dilshan"
+              fill
+              sizes="(max-width: 720px) 88vw, (max-width: 1100px) 42vw, 430px"
+              quality={90}
+              className={`portrait-image${imageLoaded ? " portrait-image-loaded" : ""}`}
+              onLoad={() => setImageLoaded(true)}
+              onError={() => setImageFailed(true)}
+            />
+          )}
+          <div className="portrait-shade" aria-hidden="true" />
+        </div>
+        <figcaption className="portrait-float-label"><span />THE DEVELOPER BEHIND THE CODE</figcaption>
+      </motion.figure>
+      <div className="editorial-content">
+        <h2 className="editorial-heading">A NOTE FROM ME</h2>
+        <motion.div
+          className="editorial-separator"
+          aria-hidden="true"
+          initial={reduceMotion ? false : { scaleX: 0, opacity: 0.45 }}
+          whileInView={{ scaleX: 1, opacity: 1 }}
+          viewport={{ once: true, amount: 0.8 }}
+          transition={{ duration: reduceMotion ? 0 : 0.8, delay: reduceMotion ? 0 : 0.18, ease: [0.22, 1, 0.36, 1] }}
+        />
+        <p className="intro-body">I like the part where a rough idea turns into something <span>real</span> — considered at the edges, dependable underneath, and genuinely <span>useful</span> to the person using it.</p>
+        <div className="editorial-signature"><span>T.D.</span><span>CURIOUS BY DEFAULT</span></div>
+        <div className="tech-strip editorial-toolkit">
+          <span className="tech-heading">IN MY TOOLKIT</span>
+          <div className="tech-list">{technologies.map((technology, index) => <span key={technology}><i>0{index + 1}</i>{technology}</span>)}</div>
+          <Code2 className="tech-icon" aria-hidden="true" />
+        </div>
+      </div>
+    </Reveal>
+  );
 }
 
 function ProjectVisual({ kind, accent }: { kind: string; accent: string }) {
@@ -70,5 +129,5 @@ function Contact() {
 export default function Portfolio() {
   const reduceMotion = useReducedMotion();
   const animateScroll = reduceMotion !== true;
-  return <ReactLenis root options={{ lerp: 0.09, smoothWheel: animateScroll, anchors: animateScroll }}><Header /><main><Hero /><div className="home-section"><Intro /><div className="tech-strip"><span className="tech-heading">IN MY TOOLKIT</span><div className="tech-list">{technologies.map((technology, index) => <span key={technology}><i>0{index + 1}</i>{technology}</span>)}</div><Code2 className="tech-icon" /></div></div><Projects /><Contact /></main></ReactLenis>;
+  return <ReactLenis root options={{ lerp: 0.09, smoothWheel: animateScroll, anchors: animateScroll }}><Header /><main><Hero /><div className="home-section"><Intro /></div><Projects /><Contact /></main></ReactLenis>;
 }

@@ -1,0 +1,38 @@
+THARINDU DILSHAN
+Aspiring Full-Stack Software Engineer
+
+PROFILE
+Aspiring Full-Stack Software Engineer passionate about building modern web applications, scalable systems, and meaningful digital experiences.
+
+PROFESSIONAL IDENTITY
+Full-Stack Development · Software Engineering · Cloud Technology
+
+TECHNOLOGIES
+React · Next.js · Node.js · TypeScript · Java · Python · SQL · Git
+
+SELECTED PROJECTS
+
+SmartCity360
+Smart city management platform.
+Technologies: Java, Jakarta EE, JavaScript, MySQL.
+
+NeuroDrive AI
+AI-powered engine monitoring and simulation concept.
+Technologies: Python, AI, Machine Learning.
+
+Adyapana Management System
+Education management platform for student registration, payments, attendance, and reporting.
+Technologies: Java, MySQL.
+
+Full-Stack Web Application
+Future project placeholder.
+Technologies: Next.js, React, Node.js, TypeScript.
+
+CONTACT
+Email: [add your email address]
+LinkedIn: [add your profile URL]
+GitHub: [add your profile URL]
+Facebook: [add your profile URL]
+
+DRAFT RESUME
+Replace the contact placeholders and add any verified experience, education, dates, and project links before sharing this resume.

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { ReactLenis } from "lenis/react";
 import { ArrowDown, ArrowDownRight, ArrowUpRight, Code2, Mail, Menu, Sparkles, X } from "lucide-react";
@@ -37,13 +37,19 @@ function Hero() {
 function Intro() {
   const reduceMotion = useReducedMotion();
   const [imageLoaded, setImageLoaded] = useState(false);
+  const portraitImageRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    const image = portraitImageRef.current;
+    if (image?.complete && image.naturalWidth > 0) setImageLoaded(true);
+  }, []);
 
   return (
     <Reveal className="portrait-editorial">
       <motion.figure
         className="portrait-figure"
-        initial={reduceMotion ? false : { opacity: 0, y: 22, clipPath: "inset(0 0 100% 0 round 6px)" }}
-        whileInView={{ opacity: 1, y: 0, clipPath: "inset(0 0 0% 0 round 6px)" }}
+        initial={reduceMotion ? false : { opacity: 0, y: 22 }}
+        whileInView={{ opacity: 1, y: 0 }}
         whileHover={reduceMotion ? undefined : { scale: 1.012 }}
         viewport={{ once: true, amount: 0.28 }}
         transition={{ duration: reduceMotion ? 0 : 0.9, ease: [0.22, 1, 0.36, 1] }}
@@ -55,6 +61,7 @@ function Intro() {
           <img
             src="/images/profile.jpg"
             alt="Portrait of Tharindu Dilshan"
+            ref={portraitImageRef}
             loading="lazy"
             decoding="async"
             className={`portrait-image${imageLoaded ? " portrait-image-loaded" : ""}`}
